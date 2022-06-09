@@ -1,0 +1,64 @@
+<div class="container-fluid" style="width: 50%">
+  <form [formGroup]="userEditForm" (ngSubmit)="onEditUser()">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input
+        [class.is-invalid]="
+          userEditForm.get('name')?.invalid && userEditForm.get('name')?.touched
+        "
+        formControlName="name"
+        type="text"
+        class="form-control"
+        id="name"
+        placeholder="Enter Name"
+      />
+      <small
+        [class.d-none]="
+          userEditForm.get('name')?.valid || userEditForm.get('name')?.untouched
+        "
+        class="text-danger"
+        >Username is required</small
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="exampleInputConfirmPassword1"> Password</label>
+      <input
+        [class.is-invalid]="
+          userEditForm.get('password')?.invalid &&
+          userEditForm.get('password')?.touched
+        "
+        formControlName="password"
+        type="password"
+        class="form-control"
+        id="exampleInputConfirmPassword1"
+        placeholder="Password"
+      />
+      <div
+        *ngIf="
+          userEditForm.get('password')?.invalid &&
+          userEditForm.get('password')?.touched
+        "
+      >
+        <small
+          *ngIf="userEditForm.get('password')?.errors?.required"
+          class="text-danger"
+          >Password Required</small
+        >
+        <small
+          *ngIf="userEditForm.get('password')?.errors?.minlength"
+          class="text-danger"
+          >password must be at least 6 characters</small
+        >
+      </div>
+    </div>
+
+    <button
+      [disabled]="!userEditForm.valid"
+      type="submit"
+      class="btn btn-primary"
+    >
+      Submit
+    </button>
+  </form>
+</div>
